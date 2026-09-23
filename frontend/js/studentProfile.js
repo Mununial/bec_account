@@ -681,7 +681,10 @@ const studentProfile = {
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           Institutional Fee Ledger &amp; Outstanding Dues
         </div>
-        <div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <a href="/payment-details.html?studentId=${s.id}" class="btn" style="background: #0284C7; color: #ffffff; font-weight: 700; padding: 0.45rem 1rem; font-size: 0.85rem; text-decoration: none; border-radius: 6px; box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);">
+            📄 Semester Payment Details
+          </a>
           <a href="/receipt-desk.html?studentId=${s.id}" class="btn" style="background: #F59E0B; color: #1E293B; font-weight: 700; padding: 0.45rem 1rem; font-size: 0.85rem; text-decoration: none; border-radius: 6px; box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);">
             💳 Collect Fee (Issue e-Receipt)
           </a>
@@ -785,6 +788,9 @@ const studentProfile = {
       </table>
 
       <div style="display: flex; gap: 0.75rem; justify-content: flex-end; flex-wrap: wrap;">
+        <a href="/payment-details.html?studentId=${s.id}" class="btn btn-outline" style="font-size: 0.85rem; text-decoration: none; color: #0284C7; border-color: #0284C7; font-weight: 600;">
+          📄 View Payment Details Screen
+        </a>
         <button class="btn btn-secondary" onclick="window.print()" style="font-size: 0.85rem;">
           🖨 Print Demand Statement
         </button>
