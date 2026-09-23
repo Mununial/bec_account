@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fast e-Receipt Desk - Bhubaneswar Engineering College</title>
+  <meta name="description" content="Ultra-fast student fee collection desk and e-receipt generation for Bhubaneswar Engineering College.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/becReal.css">
+  <link rel="stylesheet" href="/css/print.css">
+</head>
+<body>
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+  <div class="app-container">
+    <!-- 1. SIDEBAR NAVIGATION -->
+    <aside class="app-sidebar" id="appSidebar">
+      <div class="sidebar-brand">
+        <a href="/dashboard.html">
+          <img src="/assets/logo.svg" alt="BEC Crest" class="sidebar-logo">
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Core Counter Desk</div>
+        <div id="adminNavGroup">
+          <a href="/receipt-desk.html" class="nav-item active" data-page="receipt-desk" style="background: rgba(245, 158, 11, 0.18); border-left: 3px solid #F59E0B; color: #F59E0B; font-weight: 700;">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Fast e-Receipt Desk
+          </a>
+
+          <div class="nav-section-title">Management &amp; Overview</div>
+          <a href="/dashboard.html" class="nav-item" data-page="dashboard">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Executive Dashboard
+          </a>
+          <a href="/students.html" class="nav-item" data-page="students">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+            Students Directory
+          </a>
+          <a href="/student-fee.html" class="nav-item" data-page="student-fee">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            Student Fee Details
+          </a>
+
+          <div class="nav-section-title">Transport &amp; Accounts</div>
+          <a href="/student-transport-fee.html" class="nav-item" data-page="transport">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Student Transport Fee
+          </a>
+          <a href="/expenses.html" class="nav-item" data-page="expenses">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Expenses &amp; Accounts
+          </a>
+
+          <div class="nav-section-title">Registers &amp; Reports</div>
+          <a href="/receipts.html" class="nav-item" data-page="receipts">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Fee Receipts Register
+          </a>
+          <a href="/invoices.html" class="nav-item" data-page="invoices">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Invoices Register
+          </a>
+          <a href="/reports.html" class="nav-item" data-page="reports">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+            Reports &amp; Defaulters
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-badge">
+          <div class="user-avatar" id="userAvatar">BEC</div>
+          <div class="user-meta">
+            <div class="user-name" id="userDisplayName">Loading...</div>
+            <div class="user-role-tag" id="userDisplayRole">ACCOUNTS</div>
+          </div>
+          <button class="btn btn-icon btn-outline" onclick="auth.logout()" title="Secure Logout" style="color: #CBD5E1; border-color: rgba(255,255,255,0.2);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 2. MAIN APPLICATION CONTENT -->
+    <main class="app-main">
+      <!-- Top Header Bar -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <h2 class="page-title" id="topbarPageTitle">Fast e-Receipt Desk</h2>
+        </div>
+
+        <div class="topbar-right">
+          <div id="topbarClock" class="topbar-clock">Loading live clock...</div>
+          <div class="session-badge">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--success-emerald); display: inline-block;"></span>
+            Session 2026-27
+          </div>
+
+          <a href="/students.html" class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem; text-decoration: none; font-weight: 600;">
+            Students Directory
+          </a>
+
+          <button class="btn-bec-red" onclick="auth.logout()" title="Exit Portal" style="padding: 0.4rem 1rem; font-size: 0.85rem;">
+            LOGOUT
+          </button>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <!-- Fast Desk Header Banner -->
+        <div class="fast-receipt-header">
+          <div>
+            <h2 style="margin: 0; font-size: 1.35rem; font-weight: 800;">
+              Fast e-Receipt Desk
+            </h2>
+            <p style="margin: 0.35rem 0 0; font-size: 0.86rem; opacity: 0.9;">
+              Search any student across 1st, 2nd, 3rd, 4th Year by Roll No, Reg No, Name, or Phone, record fee collection, and issue official e-Receipt instantly.
+            </p>
+          </div>
+          <div style="text-align: right;">
+            <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; font-size: 0.85rem; padding: 0.4rem 0.85rem;">
+              Shortcut: Press <strong>Ctrl + Enter</strong> to Cut Receipt
+            </span>
+          </div>
+        </div>
+
+        <!-- Multi-Year Batch Filter Pills -->
+        <div class="year-filter-pills">
+          <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-muted); align-self: center; margin-right: 0.5rem;">Filter Batch:</span>
+          <button type="button" class="year-filter-pill active" onclick="becRealFee.setFastYearFilter('ALL', this)">All Batches (All Years)</button>
+          <button type="button" class="year-filter-pill" onclick="becRealFee.setFastYearFilter('1ST', this)">1st Year (2026 Batch - 1st/2nd Sem)</button>
+          <button type="button" class="year-filter-pill" onclick="becRealFee.setFastYearFilter('2ND', this)">2nd Year (2025 Batch - 3rd/4th Sem)</button>
+          <button type="button" class="year-filter-pill" onclick="becRealFee.setFastYearFilter('3RD', this)">3rd Year (2024 Batch - 5th/6th Sem)</button>
+          <button type="button" class="year-filter-pill" onclick="becRealFee.setFastYearFilter('4TH', this)">4th Year (2023 Batch - 7th/8th Sem)</button>
+        </div>
+
+        <!-- Big Live Search Box with Real-time Dropdown -->
+        <div class="fast-search-wrapper">
+          <input 
+            type="text" 
+            id="fastSearchInput" 
+            class="form-control fast-search-input" 
+            placeholder="Search by Student Name (e.g. Barsha Priyadarshini, Rajkishore), Branch, or Phone..." 
+            oninput="becRealFee.onFastSearchInput()"
+            onkeydown="becRealFee.onFastSearchKeydown(event)"
+            onfocus="becRealFee.onFastSearchInput()"
+            onclick="becRealFee.onFastSearchInput()"
+            autocomplete="off"
+          >
+          <div id="fastSearchDropdown" class="fast-search-dropdown" style="display: none;"></div>
+        </div>
+
+        <!-- Two-Column Desk Layout -->
+        <div class="fast-desk-layout">
+          <!-- Left Column: Student Card & Collection Form -->
+          <div>
+            <!-- Empty State / Quick Pick Student Chips -->
+            <div id="fastEmptyNotice" class="card" style="padding: 1.5rem 1.25rem; text-align: center; border: 2px dashed #CBD5E1; background: #F8FAFC; border-radius: var(--radius-md); margin-bottom: 1.5rem;">
+              <h3 style="color: var(--primary-navy); margin-bottom: 0.25rem; font-size: 1.15rem;">Fast e-Receipt Student Selection</h3>
+              <p style="color: var(--text-secondary); font-size: 0.88rem; max-width: 480px; margin: 0 auto 1.25rem;">
+                Type student Name or Branch above, or click any student below to immediately load their counterfoil.
+              </p>
+              <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+                Quick Pick Students:
+              </div>
+              <div id="fastQuickPicksContainer" style="display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center;"></div>
+            </div>
+
+            <!-- Student Card Section (Appears upon student selection) -->
+            <div id="fastStudentCardSection" class="fast-student-card" style="display: none;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                  <div style="width: 48px; height: 48px; border-radius: 50%; background: #1E40AF; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 800; letter-spacing: 0.05em;">
+                    ID
+                  </div>
+                  <div>
+                    <h3 id="fastCardStudentName" style="margin: 0; color: var(--primary-navy); font-size: 1.2rem;">Student Full Name</h3>
+                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
+                      Course: <strong id="fastCardCourseMeta" style="color: var(--brand-blue);">B.Tech</strong> | Section: <strong id="fastCardSectionMeta">A</strong>
+                    </div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                  <span id="fastCardYearSem" class="badge badge-info" style="font-size: 0.85rem; padding: 0.35rem 0.75rem;">1st Year</span>
+                  <a id="fastViewLedgerBtn" href="javascript:void(0)" class="btn btn-sm btn-outline" style="text-decoration: none; font-size: 0.78rem;" title="View Complete Ledger">View Ledger &rarr;</a>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; background: #fff; padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); text-align: center;">
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Branch</div>
+                  <div id="fastCardBranch" style="font-weight: 700; color: var(--primary-navy); font-size: 0.9rem;">Civil Engineering</div>
+                </div>
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Session</div>
+                  <div id="fastCardSession" style="font-weight: 700; color: var(--text-primary); font-size: 0.9rem;">2026-27</div>
+                </div>
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Total Billed</div>
+                  <div id="fastCardTotalFee" style="font-weight: 700; color: var(--text-primary); font-size: 0.95rem;">₹68,500</div>
+                </div>
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Outstanding Dues</div>
+                  <div id="fastCardOutstanding" style="font-weight: 800; color: var(--danger-rose); font-size: 1.15rem;">₹45,000</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Collection Form (Appears upon student selection) -->
+            <div id="fastCollectionSection" class="card" style="display: none;">
+              <div class="card-header" style="background: #F8FAFC;">
+                <div class="card-title">Fee Particulars &amp; Payment Instrument</div>
+              </div>
+              <div class="card-body">
+                <!-- Fee Category Selector -->
+                <div class="form-group">
+                  <label class="form-label" for="fastFeeParticulars">Fee Head / Purpose</label>
+                  <select id="fastFeeParticulars" class="form-control form-select">
+                    <option value="Semester Academic &amp; Tuition Fee">Semester Academic &amp; Tuition Fee</option>
+                    <option value="Hostel &amp; Mess Installment">Hostel &amp; Mess Installment</option>
+                    <option value="BPUT Backlog Exam Fee">BPUT Backlog Exam Fee</option>
+                    <option value="College Bus / Transport Pass Fee">College Bus / Transport Pass Fee</option>
+                    <option value="College Caution Deposit">College Caution Deposit</option>
+                    <option value="Late Registration Fine">Late Registration Fine</option>
+                    <option value="Library Fine &amp; Book Damage">Library Fine &amp; Book Damage</option>
+                    <option value="Degree / Migration Certificate Fee">Degree / Migration Certificate Fee</option>
+                    <option value="General Miscellaneous Fee">General Miscellaneous Fee</option>
+                  </select>
+                </div>
+
+                <!-- Quick Amount Buttons -->
+                <div class="form-group">
+                  <label class="form-label">Quick Amount Shortcuts</label>
+                  <div id="fastAmountShortcuts" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
+                </div>
+
+                <!-- Amount Input & In-Words preview -->
+                <div class="form-group">
+                  <label class="form-label" for="fastAmountInput">Collection Amount (INR)</label>
+                  <div style="position: relative;">
+                    <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); font-weight: 800; font-size: 1.25rem; color: var(--primary-navy);">₹</span>
+                    <input 
+                      type="number" 
+                      id="fastAmountInput" 
+                      class="form-control" 
+                      style="padding-left: 2.4rem; font-size: 1.35rem; font-weight: 800; color: var(--primary-navy); height: 50px;" 
+                      placeholder="0"
+                      min="1"
+                      step="1"
+                      oninput="becRealFee.onFastAmountChanged()"
+                    >
+                  </div>
+                  <div id="fastAmountWords" style="font-size: 0.85rem; font-style: italic; color: var(--brand-blue); margin-top: 0.35rem; font-weight: 600;"></div>
+                </div>
+
+                <!-- Payment Method Selector -->
+                <div class="form-group">
+                  <label class="form-label">Payment Mode</label>
+                  <div class="fast-payment-methods">
+                    <button type="button" class="fast-pm-btn active" onclick="becRealFee.selectFastPaymentMode('CASH', this)">
+                      <div class="badge-text">CASH</div>
+                      Counter Cash
+                    </button>
+                    <button type="button" class="fast-pm-btn" onclick="becRealFee.selectFastPaymentMode('UPI', this)">
+                      <div class="badge-text">UPI / QR</div>
+                      Scan &amp; Pay
+                    </button>
+                    <button type="button" class="fast-pm-btn" onclick="becRealFee.selectFastPaymentMode('CHEQUE', this)">
+                      <div class="badge-text">CHEQUE</div>
+                      Bank Cheque
+                    </button>
+                    <button type="button" class="fast-pm-btn" onclick="becRealFee.selectFastPaymentMode('DD', this)">
+                      <div class="badge-text">DEMAND DRAFT</div>
+                      College DD
+                    </button>
+                    <button type="button" class="fast-pm-btn" onclick="becRealFee.selectFastPaymentMode('NEFT_RTGS', this)">
+                      <div class="badge-text">NEFT / RTGS</div>
+                      Bank Transfer
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Dynamic Simulated UPI QR Box (Shown when UPI is selected) -->
+                <div id="fastUpiQrBox" style="display: none; background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1rem; text-align: center;">
+                  <div style="font-size: 0.82rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 0.5rem; text-transform: uppercase;">
+                    Official College Accounts UPI QR Code
+                  </div>
+                  <div style="display: inline-block; padding: 0.6rem; background: #fff; border-radius: 6px; border: 1px solid #E2E8F0;">
+                    <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="140" height="140" fill="white"/>
+                      <rect x="10" y="10" width="40" height="40" fill="#1E293B"/>
+                      <rect x="16" y="16" width="28" height="28" fill="white"/>
+                      <rect x="22" y="22" width="16" height="16" fill="#1E293B"/>
+                      <rect x="90" y="10" width="40" height="40" fill="#1E293B"/>
+                      <rect x="96" y="16" width="28" height="28" fill="white"/>
+                      <rect x="102" y="22" width="16" height="16" fill="#1E293B"/>
+                      <rect x="10" y="90" width="40" height="40" fill="#1E293B"/>
+                      <rect x="16" y="96" width="28" height="28" fill="white"/>
+                      <rect x="22" y="102" width="16" height="16" fill="#1E293B"/>
+                      <rect x="60" y="15" width="8" height="8" fill="#1E293B"/>
+                      <rect x="75" y="15" width="8" height="8" fill="#1E293B"/>
+                      <rect x="65" y="30" width="12" height="12" fill="#1E293B"/>
+                      <rect x="60" y="50" width="20" height="8" fill="#1E293B"/>
+                      <rect x="15" y="60" width="10" height="10" fill="#1E293B"/>
+                      <rect x="35" y="60" width="8" height="12" fill="#1E293B"/>
+                      <rect x="95" y="60" width="15" height="8" fill="#1E293B"/>
+                      <rect x="115" y="60" width="10" height="10" fill="#1E293B"/>
+                      <rect x="60" y="80" width="12" height="12" fill="#1E293B"/>
+                      <rect x="80" y="80" width="15" height="10" fill="#1E293B"/>
+                      <rect x="60" y="100" width="25" height="10" fill="#1E293B"/>
+                      <rect x="90" y="95" width="12" height="15" fill="#1E293B"/>
+                      <rect x="110" y="100" width="15" height="15" fill="#1E293B"/>
+                      <rect x="60" y="120" width="10" height="10" fill="#1E293B"/>
+                      <rect x="80" y="115" width="20" height="15" fill="#1E293B"/>
+                    </svg>
+                  </div>
+                  <div style="font-size: 0.85rem; font-weight: 700; color: #0F172A; margin-top: 0.35rem;">
+                    VPA: <code style="color: var(--brand-blue);">becaccounts@sbi</code>
+                  </div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted);">
+                    Student displays payment confirmation / UTR on mobile screen to cashier.
+                  </div>
+                </div>
+
+                <!-- Reference / Transaction / Instrument Details -->
+                <div class="form-group" id="fastRefGroup">
+                  <label class="form-label" for="fastRefInput" id="fastRefLabel">Instrument / UTR / Reference No</label>
+                  <input type="text" id="fastRefInput" class="form-control" placeholder="Counter Cash Deposit (Auto-populated)">
+                </div>
+
+                <!-- Audit Remarks -->
+                <div class="form-group">
+                  <label class="form-label" for="fastRemarksInput">Particulars / Office Remarks</label>
+                  <input type="text" id="fastRemarksInput" class="form-control" placeholder="Optional audit memo (e.g. Clearance towards 5th Sem Exam)">
+                </div>
+
+                <!-- Action Button Bar -->
+                <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1.5rem;">
+                  <button 
+                    type="button" 
+                    id="fastSubmitBtn" 
+                    class="btn btn-primary btn-lg" 
+                    style="flex: 1; height: 50px; font-weight: 800; font-size: 1.05rem; background: #1E40AF;" 
+                    onclick="becRealFee.cutReceiptFast()"
+                  >
+                    Issue e-Receipt &amp; Print [Enter]
+                  </button>
+                  <button 
+                    type="button" 
+                    class="btn btn-secondary btn-lg" 
+                    style="height: 50px;" 
+                    onclick="becRealFee.resetFastDesk()"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Active Counter Session Register -->
+          <div>
+            <div class="card">
+              <div class="card-header" style="justify-content: space-between;">
+                <div>
+                  <div class="card-title">Active Counter Session Receipts</div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem;">
+                    Receipts cut during today's counter shift. Click any receipt to reprint official dual counterfoil.
+                  </div>
+                </div>
+                <div style="display: flex; gap: 0.4rem;">
+                  <a href="/receipts.html" class="btn btn-sm btn-outline" style="text-decoration: none; font-size: 0.75rem;" title="View in Receipts Register">
+                    All Receipts &rarr;
+                  </a>
+                  <button class="btn btn-sm btn-outline" onclick="becRealFee.exportCounterSessionToExcel()" style="padding: 0.25rem 0.6rem; font-size: 0.75rem;">
+                    Export CSV
+                  </button>
+                </div>
+              </div>
+              <div class="card-body" style="padding: 0.75rem;">
+                <div id="counterSessionSummary"></div>
+                <div id="recentReceiptsList" class="recent-receipts-stream">
+                  <div style="padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.85rem;">
+                    Loading today's session counterfoil stream...
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Official Receipt Preview & Print Modal -->
+  <div id="receiptModal" class="modal-backdrop">
+    <div class="modal-card" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-title">Official Dual Counterfoil e-Receipt</div>
+        <button class="modal-close-btn" onclick="ui.closeModal('receiptModal')">&times;</button>
+      </div>
+      <div class="modal-body" id="receiptModalBody"></div>
+      <div class="modal-footer no-print">
+        <button class="btn btn-secondary" onclick="ui.closeModal('receiptModal')">Close</button>
+        <button class="btn btn-primary" onclick="window.print()">Print Official Receipt (Ctrl + P)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/navigation.js"></script>
+  <script src="/js/becRealFee.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      navigation.init('receipt-desk');
+
+      // Check if studentId was passed via URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const studentIdParam = urlParams.get('studentId');
+
+      if (studentIdParam) {
+        // Allow student cache to load then select
+        const sid = parseInt(studentIdParam, 10);
+        setTimeout(async () => {
+          if (becRealFee.allStudentsCache.length === 0) {
+            await becRealFee.loadAllStudentsCache();
+          }
+          becRealFee.selectFastStudent(sid);
+          const ledgerBtn = document.getElementById('fastViewLedgerBtn');
+          if (ledgerBtn) {
+            ledgerBtn.href = `/student-fee.html?studentId=${sid}`;
+          }
+        }, 300);
+      }
+    });
+  </script>
+</body>
+</html>

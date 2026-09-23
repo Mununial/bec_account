@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bhubaneswar Engineering College (BEC) - Finance System</title>
+  <meta name="description" content="Central Accounts and Finance Management System for Bhubaneswar Engineering College.">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body {
+      background: #0F172A;
+      color: #F8FAFC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+      margin: 0;
+    }
+    .router-card {
+      text-align: center;
+      background: #1E293B;
+      padding: 3rem 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.1);
+      max-width: 440px;
+      width: 90%;
+    }
+    .router-logo {
+      height: 64px;
+      margin-bottom: 1.5rem;
+    }
+    .router-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin: 0 0 0.5rem;
+      letter-spacing: 0.02em;
+    }
+    .router-sub {
+      font-size: 0.88rem;
+      color: #94A3B8;
+      margin: 0 0 2rem;
+    }
+    .router-spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid rgba(255,255,255,0.15);
+      border-top-color: #F59E0B;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .router-status {
+      font-size: 0.85rem;
+      color: #CBD5E1;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="router-card">
+    <img src="/assets/logo.svg" alt="BEC Crest" class="router-logo">
+    <h1 class="router-title">Bhubaneswar Engineering College</h1>
+    <p class="router-sub">Central Accounts &amp; Finance Directorate</p>
+    <div class="router-spinner"></div>
+    <div id="routerStatus" class="router-status">Verifying secure session...</div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const statusEl = document.getElementById('routerStatus');
+      const token = api.getToken();
+
+      if (!token) {
+        if (statusEl) statusEl.textContent = 'Redirecting to login...';
+        window.location.replace('/login.html');
+        return;
+      }
+
+      try {
+        const user = await auth.checkAuth();
+        if (!user) {
+          window.location.replace('/login.html');
+          return;
+        }
+
+        if (statusEl) statusEl.textContent = `Welcome ${user.email}, routing to dashboard...`;
+
+        if (user.role === 'STUDENT') {
+          window.location.replace('/student-portal.html');
+        } else {
+          // Accounts Staff, Accounts Head, Bursar, Admin land on Fast Receipt Desk for immediate action
+          window.location.replace('/receipt-desk.html');
+        }
+      } catch (err) {
+        window.location.replace('/login.html');
+      }
+    });
+  </script>
+</body>
+</html>

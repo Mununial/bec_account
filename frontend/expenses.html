@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Expenses & Accounts Master - Bhubaneswar Engineering College (BEC)</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/becReal.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #F1F5F9;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #1E293B;
+    }
+
+    /* Top Bar matching Image 4 */
+    .bec-topbar-blue {
+      background: #0B63C5;
+      color: #ffffff;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .bec-topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .bec-menu-btn {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 0.25rem;
+    }
+    .bec-topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .bec-clock-text {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #F8FAFC;
+    }
+    .btn-logout-white {
+      background: transparent;
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.7);
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 0.35rem 1.1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-logout-white:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* Outer Container */
+    .expense-container {
+      max-width: 1280px;
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+    }
+
+    /* Card Box */
+    .expense-card {
+      background: #ffffff;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    /* Screen Title matching Image 4 */
+    .expense-title {
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #0F172A;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+    }
+
+    /* Sub-Navigation Tabs matching Image 3 */
+    .subnav-tabs-bar {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 2px solid #E2E8F0;
+      padding-bottom: 0.5rem;
+      overflow-x: auto;
+    }
+    .subnav-tab-btn {
+      padding: 0.45rem 1rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: 4px;
+      border: 1px solid #CBD5E1;
+      background: #ffffff;
+      color: #334155;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .subnav-tab-btn.active {
+      background: #0B63C5;
+      color: #ffffff;
+      border-color: #0B63C5;
+    }
+
+    /* Action Buttons Bar matching Image 4 */
+    .expense-actions-bar {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-action-blue {
+      background: #0B63C5;
+      color: #ffffff;
+      border: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 0.5rem 1.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-action-blue:hover {
+      background: #0952A5;
+    }
+
+    .btn-action-grey {
+      background: #64748B;
+      color: #ffffff;
+      border: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 0.5rem 1.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-action-grey:hover {
+      background: #475569;
+    }
+
+    .btn-action-red {
+      background: #DC2626;
+      color: #ffffff;
+      border: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 0.5rem 1.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-action-red:hover {
+      background: #B91C1C;
+    }
+
+    /* Filter Card matching Image 4 */
+    .filter-card-inner {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 1.25rem;
+      margin-bottom: 1.75rem;
+      max-width: 680px;
+    }
+
+    .filter-grid-stacked {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .field-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #1E293B;
+    }
+
+    .form-select, .form-input {
+      width: 100%;
+      height: 38px;
+      border: 1px solid #CBD5E1;
+      border-radius: 4px;
+      padding: 0.4rem 0.65rem;
+      font-size: 0.85rem;
+      color: #334155;
+      background: #ffffff;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .form-select:focus, .form-input:focus {
+      border-color: #0B63C5;
+      box-shadow: 0 0 0 2px rgba(11, 99, 197, 0.15);
+    }
+
+    /* Party Picker Container with '...' Button matching Image 4 */
+    .input-picker-wrapper {
+      display: flex;
+      gap: 0.25rem;
+    }
+    .btn-picker-dots {
+      background: #0B63C5;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      padding: 0 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      height: 38px;
+    }
+    .btn-picker-dots:hover {
+      background: #0952A5;
+    }
+
+    /* Table */
+    .expense-table-container {
+      overflow-x: auto;
+      border: 1px solid #CBD5E1;
+      border-radius: 4px;
+    }
+
+    .expense-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .expense-table th {
+      background: #0B63C5;
+      color: #ffffff;
+      font-weight: 600;
+      text-align: left;
+      padding: 0.65rem 0.75rem;
+      white-space: nowrap;
+      border: 1px solid #0952A5;
+    }
+
+    .expense-table td {
+      padding: 0.65rem 0.75rem;
+      border: 1px solid #E2E8F0;
+      vertical-align: middle;
+    }
+
+    .expense-table tbody tr:hover {
+      background: #F8FAFC;
+    }
+
+    /* Modal Backdrop */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(2px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+      border: 1px solid #CBD5E1;
+    }
+    .modal-header-bec {
+      background: #0B63C5;
+      color: #ffffff;
+      padding: 0.9rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .modal-close-icon {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal-body-bec {
+      padding: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Blue Navbar -->
+  <header class="bec-topbar-blue">
+    <div class="bec-topbar-left">
+      <button class="bec-menu-btn" onclick="toggleSidebar()" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <a href="/dashboard.html" style="color: #ffffff; font-weight: 700; text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        BEC Accounts ERP
+      </a>
+      <a href="/student-transport-fee.html" style="color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.85rem; font-weight: 500; margin-left: 1rem;">
+        Student Transport
+      </a>
+      <a href="/students.html" style="color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.85rem; font-weight: 500; margin-left: 0.5rem;">
+        Students
+      </a>
+      <a href="/receipt-desk.html" style="color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.85rem; font-weight: 500; margin-left: 0.5rem;">
+        Fee Counter
+      </a>
+      <button onclick="openRolePasswordModal()" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #ffffff; border-radius: 4px; padding: 0.25rem 0.65rem; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 0.35rem; margin-left: 0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        + Role and Change Password
+      </button>
+    </div>
+    <div class="bec-topbar-right">
+      <div id="topbarClock" class="bec-clock-text">Loading clock...</div>
+      <button class="btn-logout-white" onclick="auth.logout()">LOGOUT</button>
+    </div>
+  </header>
+
+  <!-- Main Screen Content -->
+  <div class="expense-container">
+    <div class="expense-card">
+
+      <!-- Sub-Navigation Bar matching Image 3 -->
+      <div class="subnav-tabs-bar">
+        <button id="tabBtn_SEARCH" class="subnav-tab-btn active" onclick="expensesApp.switchTab('SEARCH')">Search Expense</button>
+        <button id="tabBtn_CATEGORY" class="subnav-tab-btn" onclick="expensesApp.switchTab('CATEGORY')">Expense/Income Category</button>
+        <button id="tabBtn_PARTY" class="subnav-tab-btn" onclick="expensesApp.switchTab('PARTY')">Party Master</button>
+        <button id="tabBtn_PROFIT_LOSS" class="subnav-tab-btn" onclick="expensesApp.switchTab('PROFIT_LOSS')">Profit &amp; Loss</button>
+        <button id="tabBtn_DAY_BOOK" class="subnav-tab-btn" onclick="expensesApp.switchTab('DAY_BOOK')">Day Book</button>
+      </div>
+
+      <!-- TAB 1: Search Expense matching Image 4 -->
+      <div id="tabPanel_SEARCH">
+        <h2 class="expense-title">SEARCH EXPENSES</h2>
+
+        <!-- Action Buttons Bar matching Image 4 -->
+        <div class="expense-actions-bar">
+          <button class="btn-action-blue" onclick="expensesApp.openNewExpenseModal()">New Expense</button>
+          <button class="btn-action-blue" onclick="expensesApp.fetchExpenses()">Search</button>
+          <button class="btn-action-grey" onclick="expensesApp.clearFilters()">Clear</button>
+          <button class="btn-action-red" onclick="window.location.href='/dashboard.html'">Close</button>
+          <button class="btn-action-blue" onclick="expensesApp.exportToPDF()">Export to PDF</button>
+          <button class="btn-action-blue" onclick="expensesApp.exportToExcel()">Export to Excel</button>
+        </div>
+
+        <!-- Filter Card matching Image 4 -->
+        <div class="filter-card-inner">
+          <div class="filter-grid-stacked">
+            <!-- Party Name with '...' button -->
+            <div class="field-group">
+              <label class="field-label">Party Name</label>
+              <div class="input-picker-wrapper">
+                <input type="text" id="filterPartyName" class="form-input" placeholder="Enter party name">
+                <button class="btn-picker-dots" onclick="expensesApp.openPartyPicker()" title="Browse Vendors / Parties">...</button>
+              </div>
+            </div>
+
+            <!-- From Date -->
+            <div class="field-group">
+              <label class="field-label">From Date</label>
+              <input type="date" id="filterFromDate" class="form-input">
+            </div>
+
+            <!-- To Date -->
+            <div class="field-group">
+              <label class="field-label">To Date</label>
+              <input type="date" id="filterToDate" class="form-input">
+            </div>
+
+            <!-- Expense Category -->
+            <div class="field-group">
+              <label class="field-label">Expense Category</label>
+              <select id="filterExpenseCategory" class="form-select">
+                <option value="">Select Category</option>
+              </select>
+            </div>
+
+            <!-- Party Reference -->
+            <div class="field-group">
+              <label class="field-label">Party Reference</label>
+              <input type="text" id="filterPartyRef" class="form-input" placeholder="Enter party reference">
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Table -->
+        <div class="expense-table-container">
+          <table class="expense-table">
+            <thead>
+              <tr>
+                <th style="width: 120px;">Voucher No</th>
+                <th style="width: 95px;">Date</th>
+                <th>Party / Vendor Name</th>
+                <th>Category</th>
+                <th>Payment Mode</th>
+                <th>Party Reference</th>
+                <th style="text-align: right;">Amount</th>
+                <th>Paid By</th>
+                <th style="text-align: center; width: 70px;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="expensesTbody">
+              <tr>
+                <td colspan="9" style="text-align: center; padding: 2.5rem; color: #64748B;">
+                  Loading expense vouchers...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 2: Expense / Income Category -->
+      <div id="tabPanel_CATEGORY" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <h2 class="expense-title" style="margin: 0;">EXPENSE &amp; INCOME CATEGORIES</h2>
+          <button class="btn-action-blue" onclick="openAddCategoryModal()">+ Add Category</button>
+        </div>
+        <div class="expense-table-container">
+          <table class="expense-table">
+            <thead>
+              <tr>
+                <th style="width: 120px;">Category Code</th>
+                <th>Category Name</th>
+                <th style="width: 100px;">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody id="categoriesTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 3: Party Master -->
+      <div id="tabPanel_PARTY" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <h2 class="expense-title" style="margin: 0;">PARTY MASTER (VENDORS &amp; CONTRACTORS)</h2>
+          <button class="btn-action-blue" onclick="openAddPartyModal()">+ Add Party</button>
+        </div>
+        <div class="expense-table-container">
+          <table class="expense-table">
+            <thead>
+              <tr>
+                <th>Party Name</th>
+                <th>Party Type</th>
+                <th>Contact Person</th>
+                <th>Phone Number</th>
+                <th>GSTIN</th>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody id="partiesTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 4: Profit & Loss -->
+      <div id="tabPanel_PROFIT_LOSS" style="display: none;">
+        <h2 class="expense-title">INSTITUTIONAL PROFIT &amp; LOSS STATEMENT</h2>
+        <div id="profitLossContainer"></div>
+      </div>
+
+      <!-- TAB 5: Day Book -->
+      <div id="tabPanel_DAY_BOOK" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <h2 class="expense-title" style="margin: 0;">DAY BOOK (DAILY CASH &amp; BANK STATEMENT)</h2>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <label class="field-label" style="margin: 0;">Date:</label>
+            <input type="date" id="dayBookDateInput" class="form-input" style="width: 160px; height: 34px;" onchange="expensesApp.loadDayBook()">
+          </div>
+        </div>
+        <div id="dayBookContainer"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal 1: New Expense Modal -->
+  <div id="newExpenseModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header-bec">
+        <div>Record New Expense Voucher</div>
+        <button class="modal-close-icon" onclick="expensesApp.closeNewExpenseModal()">&times;</button>
+      </div>
+      <div class="modal-body-bec">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1rem;">
+          <div class="field-group">
+            <label class="field-label">Voucher Date:</label>
+            <input type="date" id="newExpenseDate" class="form-input">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Expense Category:</label>
+            <select id="newExpenseCategory" class="form-select">
+              <option value="">Select Category</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group" style="margin-bottom: 1rem;">
+          <label class="field-label">Party / Payee Name:</label>
+          <input type="text" id="newExpensePartyName" class="form-input" placeholder="e.g. Indian Oil Fleet, TPCODL, Utkal Printers">
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1rem;">
+          <div class="field-group">
+            <label class="field-label">Amount (₹):</label>
+            <input type="number" id="newExpenseAmount" class="form-input" placeholder="0.00" min="1" step="0.01">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Payment Mode:</label>
+            <select id="newExpenseMode" class="form-select">
+              <option value="BANK_TRANSFER">Bank Transfer / NEFT</option>
+              <option value="CASH">Cash Voucher</option>
+              <option value="UPI">UPI Payment</option>
+              <option value="CHEQUE">Cheque</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group" style="margin-bottom: 1rem;">
+          <label class="field-label">Party Reference / Bill No:</label>
+          <input type="text" id="newExpenseRef" class="form-input" placeholder="e.g. Bill #8892 / Invoice #">
+        </div>
+
+        <div class="field-group" style="margin-bottom: 1.5rem;">
+          <label class="field-label">Narration / Particulars:</label>
+          <textarea id="newExpenseNarration" class="form-input" style="height: 65px; padding: 0.5rem;" placeholder="Description of expense purpose..."></textarea>
+        </div>
+
+        <button class="btn-action-blue" style="width: 100%; justify-content: center;" onclick="expensesApp.submitNewExpense()">
+          Save &amp; Generate Expense Voucher
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Party Picker Modal (...) -->
+  <div id="partyPickerModal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 520px;">
+      <div class="modal-header-bec">
+        <div>Select Party / Vendor</div>
+        <button class="modal-close-icon" onclick="expensesApp.closePartyPicker()">&times;</button>
+      </div>
+      <div class="modal-body-bec">
+        <input 
+          type="text" 
+          id="pickerPartySearchInput" 
+          class="form-input" 
+          placeholder="Type party name to search..." 
+          style="margin-bottom: 1rem;"
+          oninput="expensesApp.filterPartyPickerList()"
+        >
+        <div id="pickerPartyList" style="max-height: 320px; overflow-y: auto; border: 1px solid #E2E8F0; border-radius: 4px;">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Add Party Modal -->
+  <div id="addPartyModal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 520px;">
+      <div class="modal-header-bec">
+        <div>Register New Party / Vendor</div>
+        <button class="modal-close-icon" onclick="closeAddPartyModal()">&times;</button>
+      </div>
+      <div class="modal-body-bec">
+        <div class="field-group" style="margin-bottom: 1rem;">
+          <label class="field-label">Party Name:</label>
+          <input type="text" id="addPartyName" class="form-input" placeholder="e.g. National Book House">
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1rem;">
+          <div class="field-group">
+            <label class="field-label">Party Type:</label>
+            <select id="addPartyType" class="form-select">
+              <option value="VENDOR">Vendor / Supplier</option>
+              <option value="CONTRACTOR">Contractor</option>
+              <option value="SERVICE_PROVIDER">Service Provider</option>
+              <option value="UTILITY">Government Utility</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Contact Person:</label>
+            <input type="text" id="addPartyContact" class="form-input" placeholder="Manager name">
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1rem;">
+          <div class="field-group">
+            <label class="field-label">Phone:</label>
+            <input type="text" id="addPartyPhone" class="form-input" placeholder="+91-9861...">
+          </div>
+          <div class="field-group">
+            <label class="field-label">GSTIN (Optional):</label>
+            <input type="text" id="addPartyGstin" class="form-input" placeholder="21AAAAA0000A1Z5">
+          </div>
+        </div>
+        <div class="field-group" style="margin-bottom: 1.5rem;">
+          <label class="field-label">Address:</label>
+          <input type="text" id="addPartyAddress" class="form-input" placeholder="Bhubaneswar, Odisha">
+        </div>
+        <button class="btn-action-blue" style="width: 100%;" onclick="submitAddParty()">
+          Save Party Master
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: Role & Change Password Modal (Image 1) -->
+  <div id="rolePasswordModal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 520px;">
+      <div class="modal-header-bec">
+        <div>Role &amp; Change Password</div>
+        <button class="modal-close-icon" onclick="closeRolePasswordModal()">&times;</button>
+      </div>
+      <div class="modal-body-bec">
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; border-bottom: 1px solid #E2E8F0; padding-bottom: 0.5rem;">
+          <button id="tabBtnPassword" class="btn-action-blue" style="padding: 0.35rem 1rem; font-size: 0.8rem;" onclick="switchRoleModalTab('PASSWORD')">
+            Change Password
+          </button>
+          <button id="tabBtnRoles" class="btn-action-grey" style="padding: 0.35rem 1rem; font-size: 0.8rem;" onclick="switchRoleModalTab('ROLES')">
+            My Roles &amp; Permissions
+          </button>
+        </div>
+
+        <div id="tabContentPassword">
+          <div style="margin-bottom: 1rem;">
+            <label class="field-label">Current Password:</label>
+            <input type="password" id="currentPassInput" class="form-input" placeholder="Enter current password">
+          </div>
+          <div style="margin-bottom: 1rem;">
+            <label class="field-label">New Password:</label>
+            <input type="password" id="newPassInput" class="form-input" placeholder="Minimum 8 characters">
+          </div>
+          <div style="margin-bottom: 1.25rem;">
+            <label class="field-label">Confirm New Password:</label>
+            <input type="password" id="confirmPassInput" class="form-input" placeholder="Re-type new password">
+          </div>
+          <button class="btn-action-blue" style="width: 100%;" onclick="submitChangePassword()">
+            Update Password
+          </button>
+        </div>
+
+        <div id="tabContentRoles" style="display: none;">
+          <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 1rem; margin-bottom: 1rem;">
+            <div style="font-size: 0.8rem; color: #64748B;">Assigned System Role</div>
+            <div style="font-size: 1.1rem; font-weight: 700; color: #0B63C5; margin-top: 0.2rem;" id="userRoleBadge">
+              ACCOUNTS_STAFF
+            </div>
+            <div style="font-size: 0.8rem; color: #475569; margin-top: 0.5rem;">
+              Permissions: Record Expenses, Manage Party Master, View Day Book, Profit &amp; Loss Statements, Issue Payments.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Core Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/expenses.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      navigation.init();
+    });
+
+    function openAddPartyModal() {
+      document.getElementById('addPartyModal')?.classList.add('active');
+    }
+    function closeAddPartyModal() {
+      document.getElementById('addPartyModal')?.classList.remove('active');
+    }
+    async function submitAddParty() {
+      const name = document.getElementById('addPartyName')?.value.trim();
+      const type = document.getElementById('addPartyType')?.value;
+      const contact = document.getElementById('addPartyContact')?.value.trim();
+      const phone = document.getElementById('addPartyPhone')?.value.trim();
+      const gstin = document.getElementById('addPartyGstin')?.value.trim();
+      const addr = document.getElementById('addPartyAddress')?.value.trim();
+
+      if (!name) {
+        ui.showToast('Please enter Party Name', 'warning');
+        return;
+      }
+      try {
+        const res = await api.post('/expenses/parties', {
+          party_name: name, party_type: type, contact_person: contact, phone, gstin, address: addr
+        });
+        if (res && res.success) {
+          ui.showToast('Party registered successfully!', 'success');
+          closeAddPartyModal();
+          await expensesApp.loadParties();
+          expensesApp.renderPartyMasterTable();
+        } else {
+          ui.showToast(res.message || 'Failed to save party', 'error');
+        }
+      } catch (e) {
+        ui.showToast(e.message || 'Error saving party', 'error');
+      }
+    }
+
+    function openRolePasswordModal() {
+      document.getElementById('rolePasswordModal')?.classList.add('active');
+      const u = auth.getUser();
+      if (u) {
+        const badge = document.getElementById('userRoleBadge');
+        if (badge) badge.textContent = u.role || 'ACCOUNTS_STAFF';
+      }
+    }
+    function closeRolePasswordModal() {
+      document.getElementById('rolePasswordModal')?.classList.remove('active');
+    }
+    function switchRoleModalTab(tab) {
+      if (tab === 'PASSWORD') {
+        document.getElementById('tabContentPassword').style.display = 'block';
+        document.getElementById('tabContentRoles').style.display = 'none';
+        document.getElementById('tabBtnPassword').className = 'btn-action-blue';
+        document.getElementById('tabBtnRoles').className = 'btn-action-grey';
+      } else {
+        document.getElementById('tabContentPassword').style.display = 'none';
+        document.getElementById('tabContentRoles').style.display = 'block';
+        document.getElementById('tabBtnPassword').className = 'btn-action-grey';
+        document.getElementById('tabBtnRoles').className = 'btn-action-blue';
+      }
+    }
+    async function submitChangePassword() {
+      const cur = document.getElementById('currentPassInput')?.value;
+      const nw = document.getElementById('newPassInput')?.value;
+      const cnf = document.getElementById('confirmPassInput')?.value;
+
+      if (!cur || !nw) {
+        ui.showToast('Please enter both current and new password', 'warning');
+        return;
+      }
+      if (nw !== cnf) {
+        ui.showToast('New passwords do not match', 'error');
+        return;
+      }
+
+      try {
+        const res = await api.post('/auth/change-password', {
+          currentPassword: cur,
+          newPassword: nw
+        });
+        if (res && res.success) {
+          ui.showToast('Password successfully updated!', 'success');
+          closeRolePasswordModal();
+        } else {
+          ui.showToast(res.message || 'Failed to update password', 'error');
+        }
+      } catch (e) {
+        ui.showToast(e.message || 'Error updating password', 'error');
+      }
+    }
+  </script>
+</body>
+</html>

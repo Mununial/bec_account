@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Bhubaneswar Engineering College (BEC) Accounts Portal</title>
+  <meta name="description" content="Secure student and staff financial portal login for Bhubaneswar Engineering College (BEC).">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <style>
+    .login-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top right, #163C65 0%, #0A2540 60%, #07192C 100%);
+      padding: 1.5rem;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 440px;
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+
+    .login-brand-header {
+      background: #F8FAFC;
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .login-brand-header img {
+      max-width: 220px;
+      height: auto;
+      margin-bottom: 0.75rem;
+    }
+
+    .login-portal-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary-navy);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .login-body {
+      padding: 2rem;
+    }
+
+    .demo-accounts-picker {
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .demo-accounts-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 0.65rem;
+      text-align: center;
+    }
+
+    .demo-chips-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+
+    .demo-chip-btn {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.75rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--primary-navy);
+      text-align: center;
+      transition: all var(--transition-fast);
+    }
+
+    .demo-chip-btn:hover {
+      background: #E2E8F0;
+      border-color: var(--brand-blue);
+      color: var(--brand-blue);
+    }
+  </style>
+</head>
+<body>
+  <div class="login-wrapper">
+    <div class="login-container">
+      <div class="login-brand-header">
+        <img src="/assets/logo.svg" alt="Bhubaneswar Engineering College Crest">
+        <div class="login-portal-title">Finance &amp; Accounts Portal</div>
+      </div>
+
+      <div class="login-body">
+        <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+          <div class="form-group">
+            <label class="form-label" for="loginEmail">Institutional Email / Student ID</label>
+            <input 
+              type="text" 
+              id="loginEmail" 
+              class="form-control" 
+              placeholder="e.g. bablu.bag@bec.ac.in or 2026BEC01080" 
+              required 
+              autocomplete="username"
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="loginPassword">Password</label>
+            <input 
+              type="password" 
+              id="loginPassword" 
+              class="form-control" 
+              placeholder="Enter your password" 
+              required 
+              autocomplete="current-password"
+            >
+            <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.25rem;">
+              Click any quick button below for instant 1-click sign in.
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; font-size: 0.85rem;">
+            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer; color: var(--text-secondary);">
+              <input type="checkbox" id="rememberMe"> Remember me
+            </label>
+            <a href="javascript:void(0)" onclick="ui.showToast('Contact Accounts Office at accounts@bec.ac.in to reset credentials.', 'info')" style="font-weight: 500;">
+              Forgot Password?
+            </a>
+          </div>
+
+          <button type="submit" id="loginBtn" class="btn btn-primary" style="width: 100%; padding: 0.75rem;">
+            Sign In to Account
+          </button>
+        </form>
+
+        <!-- Quick Credentials Switcher for Verification -->
+        <div class="demo-accounts-picker">
+          <div class="demo-accounts-title">1-Click Quick Sign In</div>
+          <div class="demo-chips-grid">
+            <button type="button" class="demo-chip-btn" onclick="quickLogin('bablu.bag@bec.ac.in', 'Student@BEC2026!')" style="background: #E0F2FE; border-color: #0284C7; color: #0284C7; font-weight: 700;">
+              🎓 Bablu Bag (Student)
+            </button>
+            <button type="button" class="demo-chip-btn" onclick="quickLogin('accounts.staff@bec.ac.in', 'Staff@BEC2026!')">
+              Accounts Staff
+            </button>
+            <button type="button" class="demo-chip-btn" onclick="quickLogin('accounts.head@bec.ac.in', 'Head@BEC2026!')">
+              Accounts Head
+            </button>
+            <button type="button" class="demo-chip-btn" onclick="quickLogin('admin@bec.ac.in', 'Admin@BEC2026!')">
+              Administrator
+            </button>
+            <button type="button" class="demo-chip-btn" style="grid-column: span 2;" onclick="quickLogin('auditor@bec.ac.in', 'Auditor@BEC2026!')">
+              Auditor (Read-Only)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- First-Time Password Reset Modal -->
+  <div id="firstPasswordModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">Security Notice: Update Password</div>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+          This is your first login. To safeguard your financial account, please establish a new, permanent password.
+        </p>
+        <div class="form-group">
+          <label class="form-label" for="resetCurrentPassword">Temporary Password</label>
+          <input type="password" id="resetCurrentPassword" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="resetNewPassword">New Secure Password (min 8 chars)</label>
+          <input type="password" id="resetNewPassword" class="form-control" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="handleFirstPasswordReset()">
+          Save &amp; Continue
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    function fillCredentials(email, pass) {
+      document.getElementById('loginEmail').value = email;
+      document.getElementById('loginPassword').value = pass;
+    }
+
+    async function executeLogin(email, pass, remember) {
+      const btn = document.getElementById('loginBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Authenticating...';
+
+      try {
+        const result = await auth.login(email, pass, remember);
+        if (result && result.mustChangePassword) {
+          document.getElementById('resetCurrentPassword').value = pass;
+          ui.openModal('firstPasswordModal');
+        }
+      } catch (err) {
+        // Handled by auth.js
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Sign In to Account';
+      }
+    }
+
+    async function quickLogin(email, pass) {
+      fillCredentials(email, pass);
+      await executeLogin(email, pass, false);
+    }
+
+    async function handleLoginSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass = document.getElementById('loginPassword').value;
+      const remember = document.getElementById('rememberMe').checked;
+      await executeLogin(email, pass, remember);
+    }
+
+    async function handleFirstPasswordReset() {
+      const cur = document.getElementById('resetCurrentPassword').value;
+      const nw = document.getElementById('resetNewPassword').value;
+
+      if (!nw || nw.length < 8) {
+        ui.showToast('New password must be at least 8 characters.', 'error');
+        return;
+      }
+
+      try {
+        await auth.changePassword(cur, nw);
+        ui.closeModal('firstPasswordModal');
+        window.location.href = '/index.html';
+      } catch (e) {
+        // Handled
+      }
+    }
+  </script>
+</body>
+</html>

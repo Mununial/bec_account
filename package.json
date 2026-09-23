@@ -1,0 +1,12 @@
+{
+  "name": "bec-accounts-system",
+  "version": "1.0.0",
+  "description": "Bhubaneswar Engineering College Accounts & Finance Management System",
+  "scripts": {
+    "start": "cd backend && node server.js",
+    "dev": "cd backend && node --watch server.js",
+    "test": "cd backend && node ../tests/run_tests.js"
+  },
+  "author": "Bhubaneswar Engineering College",
+  "license": "ISC"
+}

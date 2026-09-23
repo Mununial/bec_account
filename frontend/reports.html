@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Reports &amp; Defaulters - Bhubaneswar Engineering College</title>
+  <meta name="description" content="Fee collections report, overdue defaulters list, and finance compliance for Bhubaneswar Engineering College.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/becReal.css">
+  <link rel="stylesheet" href="/css/print.css">
+</head>
+<body>
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+  <div class="app-container">
+    <!-- 1. SIDEBAR NAVIGATION -->
+    <aside class="app-sidebar" id="appSidebar">
+      <div class="sidebar-brand">
+        <a href="/dashboard.html">
+          <img src="/assets/logo.svg" alt="BEC Crest" class="sidebar-logo">
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Core Counter Desk</div>
+        <div id="adminNavGroup">
+          <a href="/receipt-desk.html" class="nav-item" data-page="receipt-desk" style="background: rgba(245, 158, 11, 0.12); color: #F59E0B; font-weight: 700;">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Fast e-Receipt Desk
+          </a>
+
+          <div class="nav-section-title">Management &amp; Overview</div>
+          <a href="/dashboard.html" class="nav-item" data-page="dashboard">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Executive Dashboard
+          </a>
+          <a href="/students.html" class="nav-item" data-page="students">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+            Students Directory
+          </a>
+          <a href="/student-fee.html" class="nav-item" data-page="student-fee">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            Student Fee Details
+          </a>
+
+          <div class="nav-section-title">Transport &amp; Accounts</div>
+          <a href="/student-transport-fee.html" class="nav-item" data-page="transport">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Student Transport Fee
+          </a>
+          <a href="/expenses.html" class="nav-item" data-page="expenses">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Expenses &amp; Accounts
+          </a>
+
+          <div class="nav-section-title">Registers &amp; Reports</div>
+          <a href="/receipts.html" class="nav-item" data-page="receipts">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Fee Receipts Register
+          </a>
+          <a href="/invoices.html" class="nav-item" data-page="invoices">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Invoices Register
+          </a>
+          <a href="/reports.html" class="nav-item active" data-page="reports">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+            Reports &amp; Defaulters
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-badge">
+          <div class="user-avatar" id="userAvatar">BEC</div>
+          <div class="user-meta">
+            <div class="user-name" id="userDisplayName">Loading...</div>
+            <div class="user-role-tag" id="userDisplayRole">ACCOUNTS</div>
+          </div>
+          <button class="btn btn-icon btn-outline" onclick="auth.logout()" title="Secure Logout" style="color: #CBD5E1; border-color: rgba(255,255,255,0.2);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 2. MAIN APPLICATION CONTENT -->
+    <main class="app-main">
+      <!-- Top Header Bar -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <h2 class="page-title" id="topbarPageTitle">Financial Reports &amp; Defaulters Desk</h2>
+        </div>
+
+        <div class="topbar-right">
+          <div id="topbarClock" class="topbar-clock">Loading live clock...</div>
+          <div class="session-badge">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--success-emerald); display: inline-block;"></span>
+            Session 2026-27
+          </div>
+
+          <a href="/receipt-desk.html" class="btn" style="background: #F59E0B; color: #1E293B; font-weight: 700; border: none; padding: 0.45rem 1rem; border-radius: var(--radius-sm); display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35); font-size: 0.85rem;">
+            Issue e-Receipt
+          </a>
+
+          <button class="btn-bec-red" onclick="auth.logout()" title="Exit Portal" style="padding: 0.4rem 1rem; font-size: 0.85rem;">
+            LOGOUT
+          </button>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <div class="quick-actions-bar" style="justify-content: space-between; margin-bottom: 1.5rem;">
+          <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+            <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">From:</label>
+            <input type="date" id="reportStartDate" class="form-control" style="width: 170px;">
+            <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">To:</label>
+            <input type="date" id="reportEndDate" class="form-control" style="width: 170px;">
+            <button class="btn btn-primary" onclick="reportsModule.loadCollections()">Filter Statement</button>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="btn btn-outline" onclick="reportsModule.exportCsv('collections')">
+              Export Collections (CSV)
+            </button>
+            <button class="btn btn-outline" onclick="reportsModule.exportCsv('defaulters')">
+              Export Defaulters (CSV)
+            </button>
+            <a href="/receipt-desk.html" class="btn btn-primary" style="text-decoration: none; font-weight: 600;">
+              Fast Receipt Desk
+            </a>
+          </div>
+        </div>
+
+        <!-- Defaulters Register Card -->
+        <div class="card" style="margin-bottom: 2rem;">
+          <div class="card-header" style="justify-content: space-between;">
+            <div>
+              <div class="card-title" style="color: var(--danger-rose);">Overdue Fee Defaulters Register</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem;">
+                Students whose invoice due date has elapsed. Click student to view ledger or click 'Collect Dues' to issue receipt.
+              </div>
+            </div>
+            <div>Total Overdue: <strong id="defaultersTotalOverdue" style="color: var(--danger-rose); font-size: 1.15rem;">₹0.00</strong></div>
+          </div>
+          <div class="card-body" style="padding: 0;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Reg No</th>
+                    <th>Student &amp; Phone</th>
+                    <th>Branch</th>
+                    <th>Semester</th>
+                    <th>Outstanding</th>
+                    <th>Due Date</th>
+                    <th>Overdue Aging</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="defaultersTbody">
+                  <tr><td colspan="8" style="text-align: center; padding: 2rem; color: var(--text-muted);">Loading overdue defaulters register...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collections Statement Card -->
+        <div class="card">
+          <div class="card-header" style="justify-content: space-between;">
+            <div>
+              <div class="card-title">Fee Collection Statement (Audit Trail)</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem;">
+                Verified inflow transactions recorded by college accounts desk.
+              </div>
+            </div>
+            <div>Total Inflow: <strong id="reportTotalCollected" style="color: var(--success-emerald); font-size: 1.15rem;">₹0.00</strong></div>
+          </div>
+          <div class="card-body" style="padding: 0;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Receipt No</th>
+                    <th>Student Name &amp; Reg No</th>
+                    <th>Branch</th>
+                    <th>Amount</th>
+                    <th>Method</th>
+                    <th>Txn ID</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="reportCollectionsTbody">
+                  <tr><td colspan="7" style="text-align: center; padding: 2rem; color: var(--text-muted);">Loading collection records...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/navigation.js"></script>
+  <script src="/js/reports.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      navigation.init('reports');
+
+      // Default past 30 days
+      const today = new Date().toISOString().split('T')[0];
+      const d = new Date();
+      d.setDate(d.getDate() - 30);
+      const past30 = d.toISOString().split('T')[0];
+
+      const startEl = document.getElementById('reportStartDate');
+      const endEl = document.getElementById('reportEndDate');
+      if (startEl) startEl.value = past30;
+      if (endEl) endEl.value = today;
+
+      await reportsModule.init();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Profile &amp; Directory - Bhubaneswar Engineering College</title>
+  <meta name="description" content="Official Student Profile, Academic Particulars, and Fee Ledger Status for Bhubaneswar Engineering College.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/becReal.css">
+  <link rel="stylesheet" href="/css/studentCms.css">
+  <link rel="stylesheet" href="/css/print.css">
+</head>
+<body>
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+  <div class="app-container">
+    <!-- 1. SIDEBAR NAVIGATION -->
+    <aside class="app-sidebar" id="appSidebar">
+      <div class="sidebar-brand">
+        <a href="/dashboard.html">
+          <img src="/assets/logo.svg" alt="BEC Crest" class="sidebar-logo">
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Core Counter Desk</div>
+        <div id="adminNavGroup">
+          <a href="/receipt-desk.html" class="nav-item" data-page="receipt-desk" style="background: rgba(245, 158, 11, 0.12); color: #F59E0B; font-weight: 700;">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Fast e-Receipt Desk
+          </a>
+
+          <div class="nav-section-title">Management &amp; Overview</div>
+          <a href="/dashboard.html" class="nav-item" data-page="dashboard">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Executive Dashboard
+          </a>
+          <a href="/students.html" class="nav-item active" data-page="students">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+            Students Directory &amp; Profile
+          </a>
+          <a href="/student-fee.html" class="nav-item" data-page="student-fee">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            Student Fee Details
+          </a>
+
+          <div class="nav-section-title">Transport &amp; Accounts</div>
+          <a href="/student-transport-fee.html" class="nav-item" data-page="transport">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Student Transport Fee
+          </a>
+          <a href="/expenses.html" class="nav-item" data-page="expenses">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Expenses &amp; Accounts
+          </a>
+
+          <div class="nav-section-title">Registers &amp; Reports</div>
+          <a href="/receipts.html" class="nav-item" data-page="receipts">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Fee Receipts Register
+          </a>
+          <a href="/invoices.html" class="nav-item" data-page="invoices">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Invoices Register
+          </a>
+          <a href="/reports.html" class="nav-item" data-page="reports">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+            Reports &amp; Defaulters
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-badge">
+          <div class="user-avatar" id="userAvatar">BEC</div>
+          <div class="user-meta">
+            <div class="user-name" id="userDisplayName">Loading...</div>
+            <div class="user-role-tag" id="userDisplayRole">ACCOUNTS</div>
+          </div>
+          <button class="btn btn-icon btn-outline" onclick="auth.logout()" title="Secure Logout" style="color: #CBD5E1; border-color: rgba(255,255,255,0.2);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 2. MAIN APPLICATION CONTENT -->
+    <main class="app-main">
+      <!-- Top Header Bar -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <h2 class="page-title" id="topbarPageTitle">Student CMS Management Portal</h2>
+        </div>
+
+        <div class="topbar-right">
+          <div id="topbarClock" class="topbar-clock">Loading live clock...</div>
+          <div class="session-badge">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--success-emerald); display: inline-block;"></span>
+            Session 2026-27
+          </div>
+
+          <a href="/receipt-desk.html" class="btn" style="background: #F59E0B; color: #1E293B; font-weight: 700; border: none; padding: 0.45rem 1rem; border-radius: var(--radius-sm); display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35); font-size: 0.85rem;">
+            Issue e-Receipt
+          </a>
+
+          <button class="btn-bec-red" onclick="auth.logout()" title="Exit Portal" style="padding: 0.4rem 1rem; font-size: 0.85rem;">
+            LOGOUT
+          </button>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content" style="padding: 1.25rem 1.5rem;">
+        <!-- Breadcrumb (GIFT CMS style matching Photo 1) -->
+        <div class="cms-breadcrumb-bar">
+          <a href="/dashboard.html">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Home
+          </a>
+          <span class="sep">/</span>
+          <a href="/students.html">Student</a>
+          <span class="sep">/</span>
+          <a href="javascript:void(0)" onclick="studentProfile.setView('directory')">Manage Students</a>
+          <span class="sep">/</span>
+          <span id="cmsBcStudentName" class="active-crumb">Loading student...</span>
+        </div>
+
+        <!-- Title Bar & Fast Navigation Toolbar -->
+        <div class="cms-page-title-row">
+          <h1 class="cms-main-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Student Profile
+          </h1>
+
+          <div class="cms-top-toolbar">
+            <!-- Fast Live Search -->
+            <div class="cms-search-box-wrap">
+              <span class="search-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </span>
+              <input type="text" id="cmsLiveSearchInput" placeholder="Instant Search 182 Students..." oninput="studentProfile.onSearchInput(event)">
+            </div>
+
+            <!-- Student Selector Dropdown -->
+            <select id="cmsStudentSelect" class="cms-quick-select" onchange="studentProfile.onSelectorChange(event)" title="Select any student from reporting cohort">
+              <option value="">Loading students...</option>
+            </select>
+
+            <!-- Stepper Buttons -->
+            <button type="button" id="cmsPrevBtn" class="cms-btn-stepper" onclick="studentProfile.prevStudent()" title="Previous Student">
+              &larr; Prev
+            </button>
+            <button type="button" id="cmsNextBtn" class="cms-btn-stepper" onclick="studentProfile.nextStudent()" title="Next Student">
+              Next &rarr;
+            </button>
+
+            <!-- View Toggle Pill -->
+            <div class="cms-view-pill-group">
+              <button type="button" id="btnViewProfile" class="cms-view-pill-btn active" onclick="studentProfile.setView('profile')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Profile View
+              </button>
+              <button type="button" id="btnViewDirectory" class="cms-view-pill-btn" onclick="studentProfile.setView('directory')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                Directory Table (182)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Star Student Access Chips Bar -->
+        <div id="cmsQuickChipsContainer" class="cms-quick-chips-bar"></div>
+
+        <!-- VIEW 1: GIFT CMS STYLE STUDENT PROFILE VIEW -->
+        <div id="cmsProfileViewWrap">
+          <div class="cms-layout-grid" id="cmsProfileGrid">
+            <!-- Left Column: Student Profile Sidebar Card (Matching Photo 1) -->
+            <div class="cms-profile-sidebar-card" id="cmsProfileLeftCard">
+              <div style="padding: 2.5rem; text-align: center; color: #64748B;">
+                <div class="spinner" style="margin-bottom: 0.75rem;"></div>
+                Loading student profile...
+              </div>
+            </div>
+
+            <!-- Right Column: Quick Links & Tabbed Content (Matching Photo 2) -->
+            <div class="cms-main-content-column">
+              <!-- Top Quick Action Links (GIFT CMS style) -->
+              <div class="cms-top-quick-actions-bar">
+                <a href="javascript:void(0)" class="cms-quick-action-item" onclick="ui.showToast('College Internal Marks module synced with ERP.', 'info')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M9 10a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v11H9z"/></svg>
+                  College Marks
+                </a>
+                <a href="javascript:void(0)" class="cms-quick-action-item" onclick="ui.showToast('University BPUT Semester Assessment records active.', 'info')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                  University Marks
+                </a>
+                <a href="javascript:void(0)" class="cms-quick-action-item" onclick="studentProfile.switchTab('attendance')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  Campus Biometric
+                </a>
+                <a href="javascript:void(0)" class="cms-quick-action-item" onclick="ui.showToast('Canteen Smart Meal Pass active for session 2026-27.', 'info')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                  Canteen Access Log
+                </a>
+              </div>
+
+              <!-- Tabs Container -->
+              <div class="cms-tabs-panel-card">
+                <!-- Tab Navigation Bar with Signature Cyan Accent Line -->
+                <div class="cms-tab-bar-nav">
+                  <button type="button" class="cms-tab-item-btn active" data-tab="personal" onclick="studentProfile.switchTab('personal')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    Personal
+                  </button>
+                  <button type="button" class="cms-tab-item-btn" data-tab="academic" onclick="studentProfile.switchTab('academic')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                    Academic
+                  </button>
+                  <button type="button" class="cms-tab-item-btn" data-tab="guardians" onclick="studentProfile.switchTab('guardians')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+                    Guardians
+                  </button>
+                  <button type="button" class="cms-tab-item-btn" data-tab="address" onclick="studentProfile.switchTab('address')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    Address
+                  </button>
+                  <button type="button" class="cms-tab-item-btn" data-tab="documents" onclick="studentProfile.switchTab('documents')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    Documents
+                  </button>
+                  <button type="button" class="cms-tab-item-btn tab-fees-item" data-tab="fees" onclick="studentProfile.switchTab('fees')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Fees (₹1,15,000 Dues)
+                  </button>
+                  <button type="button" class="cms-tab-item-btn" data-tab="attendance" onclick="studentProfile.switchTab('attendance')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    Attendance
+                  </button>
+                  <button type="button" class="cms-tab-item-btn" data-tab="health" onclick="studentProfile.switchTab('health')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    Health
+                  </button>
+                  <button type="button" class="cms-tab-item-btn" data-tab="idcard" onclick="studentProfile.switchTab('idcard')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/></svg>
+                    ID Card
+                  </button>
+                </div>
+
+                <!-- Active Tab Content Body -->
+                <div class="cms-tab-content-area" id="cmsTabPanelBody">
+                  <div style="padding: 2.5rem; text-align: center; color: #64748B;">
+                    <div class="spinner" style="margin-bottom: 0.75rem;"></div>
+                    Loading student particulars...
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW 2: SEARCHABLE ALL STUDENTS DIRECTORY TABLE -->
+        <div id="cmsDirectoryViewWrap" style="display: none;">
+          <!-- Filter Card -->
+          <div class="card" style="margin-bottom: 1.5rem; padding: 1.25rem;">
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+              <div style="flex: 1; min-width: 280px;">
+                <input 
+                  type="text" 
+                  id="studentsSearchInput" 
+                  class="form-control" 
+                  placeholder="Search 182 students by Name, Roll No, Reg No, Phone, or Branch..."
+                  oninput="studentProfile.renderDirectoryTable()"
+                >
+              </div>
+              <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <select id="studentsBranchFilter" class="form-control form-select" style="width: 200px;" onchange="studentProfile.renderDirectoryTable()">
+                  <option value="">All 8 Engineering Branches</option>
+                  <option value="1">Computer Science (CSE)</option>
+                  <option value="2">CSE (Data Science)</option>
+                  <option value="3">Agricultural Engineering</option>
+                  <option value="4">Electrical Engineering (EE)</option>
+                  <option value="5">Mechanical Engineering (ME)</option>
+                  <option value="6">Aeronautical Engineering</option>
+                  <option value="7">Civil Engineering (CE)</option>
+                  <option value="8">ECE (Electronics &amp; Comm)</option>
+                </select>
+
+                <select id="studentsDuesFilter" class="form-control form-select" style="width: 180px;" onchange="studentProfile.renderDirectoryTable()">
+                  <option value="ALL">All Accounts (182)</option>
+                  <option value="DUES_ONLY" selected>With Dues (₹1,15,000)</option>
+                  <option value="CLEARED">Fee Cleared (Zero Dues)</option>
+                </select>
+
+                <a href="/receipt-desk.html" class="btn btn-primary" style="text-decoration: none; font-weight: 600;">
+                  Fast Receipt Desk
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Students Directory Table -->
+          <div class="card">
+            <div class="card-header" style="justify-content: space-between;">
+              <div>
+                <div class="card-title">1st Year Engineering Cohort Directory (Reporting Database)</div>
+                <div id="studentsCountLabel" style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.15rem;">
+                  Showing 182 verified students from reporting spreadsheet
+                </div>
+              </div>
+            </div>
+            <div class="card-body" style="padding: 0;">
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 50px; text-align: center;">Sl</th>
+                      <th>Student Full Name &amp; Credentials</th>
+                      <th>Branch</th>
+                      <th>Category</th>
+                      <th>Annual Invoiced</th>
+                      <th>Paid Amount</th>
+                      <th>Outstanding Dues</th>
+                      <th style="text-align: right;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="studentsDirectoryTbody">
+                    <tr><td colspan="8" style="text-align: center; padding: 2.5rem; color: var(--text-muted);">Loading students directory...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/navigation.js"></script>
+  <script src="/js/studentProfile.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      navigation.init('students');
+      await studentProfile.init();
+    });
+  </script>
+</body>
+</html>

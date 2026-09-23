@@ -1,0 +1,662 @@
+/**
+ * Styles for BEC Institutional Accounts Workflow
+ * Matches Real Bhubaneswar Engineering College Accounts ERP Interface
+ */
+
+/* Top Action Bar matching Screenshot 2 */
+.bec-action-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  background: var(--bg-card);
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-bec-blue {
+  background: #1E40AF;
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+  padding: 0.55rem 1.4rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+}
+
+.btn-bec-blue:hover {
+  background: #1D4ED8;
+  box-shadow: 0 2px 6px rgba(30, 64, 175, 0.3);
+}
+
+.btn-bec-grey {
+  background: #475569;
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+  padding: 0.55rem 1.4rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+}
+
+.btn-bec-grey:hover {
+  background: #334155;
+}
+
+.btn-bec-red {
+  background: #DC2626;
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+  padding: 0.55rem 1.4rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+}
+
+.btn-bec-red:hover {
+  background: #B91C1C;
+}
+
+/* 3-Column Form Grid matching Screenshot 2 */
+.bec-form-card {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.bec-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .bec-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.input-with-picker {
+  display: flex;
+  align-items: stretch;
+  gap: 0.35rem;
+}
+
+.input-with-picker input {
+  flex: 1;
+}
+
+.btn-picker-dots {
+  background: #1E40AF;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+}
+
+.btn-picker-dots:hover {
+  background: #2563EB;
+}
+
+/* Dual Split Tables Layout matching Screenshot 2 */
+.bec-dual-tables-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 1100px) {
+  .bec-dual-tables-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bec-table-card {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.bec-table-header-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background: #F8FAFC;
+}
+
+.bec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.bec-table thead th {
+  background: #1E40AF;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+  white-space: nowrap;
+  border: 1px solid #1D4ED8;
+}
+
+.bec-table tbody td {
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--border-subtle);
+  vertical-align: middle;
+}
+
+.bec-table tbody tr:nth-child(even) {
+  background: #F8FAFC;
+}
+
+.bec-table tbody tr:hover {
+  background: #EFF6FF;
+}
+
+/* Header Live Clock */
+.topbar-clock {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  background: #EFF6FF;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid #BFDBFE;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Sidebar Real Fee Group Badge */
+.nav-section-title {
+  padding: 0.75rem 1.25rem 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Fast e-Receipt Counter Styles */
+.fast-receipt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  background: linear-gradient(135deg, #1E3A8A 0%, #1E40AF 100%);
+  color: #fff;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.year-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.year-filter-pill {
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.year-filter-pill:hover {
+  background: #E2E8F0;
+  border-color: #94A3B8;
+}
+
+.year-filter-pill.active {
+  background: var(--brand-blue);
+  color: #ffffff;
+  border-color: var(--brand-blue);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+.fast-search-wrapper {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.fast-search-input {
+  font-size: 1.05rem;
+  padding: 0.85rem 1.25rem;
+  border: 2px solid #3B82F6;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  width: 100%;
+}
+
+.fast-search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  max-height: 380px;
+  overflow-y: auto;
+  z-index: 100;
+  margin-top: 0.35rem;
+}
+
+.fast-search-item {
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid #F1F5F9;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.fast-search-item:hover {
+  background: #EFF6FF;
+}
+
+.fast-desk-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .fast-desk-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fast-student-card {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.payment-modes-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 640px) {
+  .payment-modes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.payment-mode-tile {
+  background: #F8FAFC;
+  border: 2px solid #E2E8F0;
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all var(--transition-fast);
+}
+
+.payment-mode-tile:hover {
+  border-color: #93C5FD;
+  background: #EFF6FF;
+}
+
+.payment-mode-tile.active {
+  border-color: #1D4ED8;
+  background: #EFF6FF;
+  color: #1D4ED8;
+  box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.2);
+}
+
+.recent-receipt-card {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.75rem;
+  transition: border-color var(--transition-fast);
+}
+
+.recent-receipt-card:hover {
+  border-color: #93C5FD;
+}
+
+/* Fast Search Keyboard Navigation */
+.fast-search-item.selected {
+  background: #EFF6FF !important;
+  border-left: 4px solid #2563EB !important;
+}
+
+/* ========================================================================= */
+/* OFFICIAL DUAL COUNTERFOIL e-RECEIPT STYLES                                */
+/* ========================================================================= */
+
+.bec-official-receipt {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  color: #1E293B;
+  background: #ffffff;
+  padding: 0.5rem;
+}
+
+.receipt-foil {
+  position: relative;
+  background: #ffffff;
+  border: 2px solid #1E3A8A;
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.student-foil {
+  border-bottom: 2px solid #1E3A8A;
+}
+
+.college-foil {
+  background: #FDFDFD;
+  border: 1.5px dashed #1E3A8A;
+  padding: 1rem 1.25rem;
+}
+
+.foil-badge {
+  position: absolute;
+  top: -11px;
+  left: 1.5rem;
+  background: #1E3A8A;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.15rem 0.75rem;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+.foil-badge-secondary {
+  background: #475569;
+}
+
+.receipt-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1.5px solid #CBD5E1;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.compact-header {
+  border-bottom: 1px solid #E2E8F0;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.receipt-logo {
+  height: 48px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.receipt-college-text {
+  text-align: center;
+  flex: 1;
+}
+
+.receipt-college-title {
+  color: #1E3A8A;
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.receipt-college-sub {
+  font-size: 0.74rem;
+  color: #475569;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+
+.receipt-college-addr {
+  font-size: 0.7rem;
+  color: #64748B;
+  margin-top: 0.1rem;
+}
+
+.official-seal-box {
+  width: 52px;
+  height: 52px;
+  border: 2px solid #DC2626;
+  color: #DC2626;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.55rem;
+  font-weight: 900;
+  transform: rotate(-12deg);
+  opacity: 0.85;
+}
+
+.receipt-banner-bar {
+  background: #1E3A8A;
+  color: #ffffff;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.25rem;
+  border-radius: 3px;
+  margin-bottom: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.receipt-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.45rem 1.25rem;
+  font-size: 0.82rem;
+  margin-bottom: 0.85rem;
+}
+
+.receipt-info-grid .lbl {
+  color: #64748B;
+  font-size: 0.78rem;
+}
+
+.receipt-info-grid .val {
+  color: #0F172A;
+}
+
+.receipt-info-grid .val-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.compact-grid {
+  grid-template-columns: repeat(3, 1fr);
+  font-size: 0.76rem;
+  gap: 0.35rem 0.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.receipt-particulars-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  margin-bottom: 0.75rem;
+}
+
+.receipt-particulars-table th {
+  background: #F1F5F9;
+  color: #1E293B;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid #CBD5E1;
+  text-align: left;
+  font-size: 0.78rem;
+}
+
+.receipt-particulars-table td {
+  padding: 0.5rem 0.6rem;
+  border: 1px solid #E2E8F0;
+  vertical-align: middle;
+}
+
+.receipt-particulars-table tfoot td {
+  background: #F8FAFC;
+  border-top: 2px solid #CBD5E1;
+  padding: 0.55rem 0.6rem;
+}
+
+.receipt-words-box {
+  background: #F8FAFC;
+  border: 1px dashed #CBD5E1;
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  color: #1E293B;
+  margin-bottom: 0.85rem;
+}
+
+.receipt-signatures-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 0.75rem;
+}
+
+.sig-col {
+  text-align: center;
+  min-width: 130px;
+}
+
+.sig-line {
+  border-bottom: 1px solid #0F172A;
+  margin-bottom: 0.25rem;
+  width: 100%;
+}
+
+.sig-caption {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.perforation-cut-line {
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #94A3B8;
+  letter-spacing: 0.05em;
+  margin: 0.75rem 0;
+  user-select: none;
+}
+
+.receipt-modal-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #E2E8F0;
+}
+
+/* ========================================================================= */
+/* PRINT OPTIMIZATION (@media print)                                         */
+/* ========================================================================= */
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  
+  #receiptModal,
+  #receiptModal * {
+    visibility: visible;
+  }
+
+  #receiptModal {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+
+  .modal-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .modal-header,
+  .modal-close-btn,
+  .modal-footer,
+  .no-print,
+  .receipt-modal-actions {
+    display: none !important;
+  }
+
+  .bec-official-receipt {
+    padding: 0 !important;
+  }
+
+  .receipt-foil {
+    border: 1.5px solid #000 !important;
+    page-break-inside: avoid;
+  }
+
+  .college-foil {
+    border: 1px dashed #000 !important;
+  }
+}
+
+

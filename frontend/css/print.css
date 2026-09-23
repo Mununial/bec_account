@@ -1,0 +1,164 @@
+/**
+ * Official Digital Receipt & Invoice High-Resolution Print Stylesheet
+ * Bhubaneswar Engineering College (BEC) Accounts System
+ */
+
+/* Hidden on screen by default */
+#printableReceiptArea, #printableInvoiceArea {
+  display: none;
+}
+
+@media print {
+  /* Hide all interactive app shell elements */
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    font-size: 12pt;
+  }
+
+  .app-sidebar,
+  .app-topbar,
+  .quick-actions-bar,
+  .btn,
+  .modal-backdrop,
+  .toast-container,
+  .nav-tabs,
+  .no-print {
+    display: none !important;
+  }
+
+  .app-main {
+    margin-left: 0 !important;
+    padding: 0 !important;
+  }
+
+  .page-content {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Show only printable receipt or invoice */
+  #printableReceiptArea.print-active,
+  #printableInvoiceArea.print-active {
+    display: block !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 20mm 15mm;
+  }
+
+  .receipt-document {
+    border: 2px solid #0A2540;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    background: #FFFFFF;
+  }
+
+  .receipt-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 75pt;
+    font-weight: 900;
+    color: rgba(10, 37, 64, 0.05);
+    letter-spacing: 0.1em;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .receipt-header {
+    text-align: center;
+    border-bottom: 2px solid #0A2540;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .receipt-college-title {
+    font-size: 18pt;
+    font-weight: 900;
+    color: #0A2540;
+    text-transform: uppercase;
+  }
+
+  .receipt-college-sub {
+    font-size: 9.5pt;
+    color: #334155;
+    margin-top: 2px;
+  }
+
+  .receipt-badge-title {
+    display: inline-block;
+    background: #0A2540;
+    color: #FFFFFF;
+    font-weight: 700;
+    padding: 3px 18px;
+    border-radius: 20px;
+    font-size: 11pt;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .receipt-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    font-size: 10pt;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .receipt-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .receipt-table th, .receipt-table td {
+    border: 1px solid #CBD5E1;
+    padding: 8px 10px;
+    font-size: 10pt;
+  }
+
+  .receipt-table th {
+    background: #F1F5F9;
+    font-weight: 700;
+    color: #0F172A;
+  }
+
+  .receipt-signatures {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    padding-top: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .signature-box {
+    text-align: center;
+    width: 200px;
+    border-top: 1px dashed #0F172A;
+    padding-top: 6px;
+    font-size: 9pt;
+    font-weight: 600;
+  }
+
+  .receipt-footer-note {
+    text-align: center;
+    font-size: 8pt;
+    color: #64748B;
+    margin-top: 24px;
+    border-top: 1px solid #E2E8F0;
+    padding-top: 6px;
+  }
+}

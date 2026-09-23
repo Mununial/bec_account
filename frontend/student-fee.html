@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Fee Details &amp; Ledger - Bhubaneswar Engineering College</title>
+  <meta name="description" content="Student fee particulars, ledger entries, and billing structures for Bhubaneswar Engineering College.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/becReal.css">
+  <link rel="stylesheet" href="/css/print.css">
+</head>
+<body>
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+  <div class="app-container">
+    <!-- 1. SIDEBAR NAVIGATION -->
+    <aside class="app-sidebar" id="appSidebar">
+      <div class="sidebar-brand">
+        <a href="/dashboard.html">
+          <img src="/assets/logo.svg" alt="BEC Crest" class="sidebar-logo">
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Core Counter Desk</div>
+        <div id="adminNavGroup">
+          <a href="/receipt-desk.html" class="nav-item" data-page="receipt-desk" style="background: rgba(245, 158, 11, 0.12); color: #F59E0B; font-weight: 700;">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Fast e-Receipt Desk
+          </a>
+
+          <div class="nav-section-title">Management &amp; Overview</div>
+          <a href="/dashboard.html" class="nav-item" data-page="dashboard">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Executive Dashboard
+          </a>
+          <a href="/students.html" class="nav-item" data-page="students">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+            Students Directory
+          </a>
+          <a href="/student-fee.html" class="nav-item active" data-page="student-fee">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            Student Fee Details
+          </a>
+
+          <div class="nav-section-title">Transport &amp; Accounts</div>
+          <a href="/student-transport-fee.html" class="nav-item" data-page="transport">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Student Transport Fee
+          </a>
+          <a href="/expenses.html" class="nav-item" data-page="expenses">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Expenses &amp; Accounts
+          </a>
+
+          <div class="nav-section-title">Registers &amp; Reports</div>
+          <a href="/receipts.html" class="nav-item" data-page="receipts">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Fee Receipts Register
+          </a>
+          <a href="/invoices.html" class="nav-item" data-page="invoices">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Invoices Register
+          </a>
+          <a href="/reports.html" class="nav-item" data-page="reports">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+            Reports &amp; Defaulters
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-badge">
+          <div class="user-avatar" id="userAvatar">BEC</div>
+          <div class="user-meta">
+            <div class="user-name" id="userDisplayName">Loading...</div>
+            <div class="user-role-tag" id="userDisplayRole">ACCOUNTS</div>
+          </div>
+          <button class="btn btn-icon btn-outline" onclick="auth.logout()" title="Secure Logout" style="color: #CBD5E1; border-color: rgba(255,255,255,0.2);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 2. MAIN APPLICATION CONTENT -->
+    <main class="app-main">
+      <!-- Top Header Bar -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <h2 class="page-title" id="topbarPageTitle">Student Fee Details &amp; Ledger</h2>
+        </div>
+
+        <div class="topbar-right">
+          <div id="topbarClock" class="topbar-clock">Loading live clock...</div>
+          <div class="session-badge">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--success-emerald); display: inline-block;"></span>
+            Session 2026-27
+          </div>
+
+          <a id="headerCollectFeeBtn" href="/receipt-desk.html" class="btn" style="background: #F59E0B; color: #1E293B; font-weight: 700; border: none; padding: 0.45rem 1rem; border-radius: var(--radius-sm); display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35); font-size: 0.85rem;">
+            Issue e-Receipt
+          </a>
+
+          <button class="btn-bec-red" onclick="auth.logout()" title="Exit Portal" style="padding: 0.4rem 1rem; font-size: 0.85rem;">
+            LOGOUT
+          </button>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <div style="text-align: center; margin-bottom: 1.25rem;">
+          <h2 style="color: var(--primary-navy); letter-spacing: 0.04em; font-weight: 800; font-size: 1.4rem; margin: 0;">
+            STUDENT FEE DETAILS &amp; PARTICULARS
+          </h2>
+        </div>
+
+        <!-- Action Toolbar matching Screenshot 2 -->
+        <div class="bec-action-toolbar" style="justify-content: space-between;">
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="btn-bec-blue" onclick="becRealFee.saveFeeChanges()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              Save Changes
+            </button>
+            <button class="btn-bec-grey" onclick="becRealFee.clearStudentFeeForm()">
+              Clear
+            </button>
+            <button class="btn-bec-blue" onclick="becRealFee.openStudentPickerModal('studentFee')">
+              Pick Student [...]
+            </button>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <a id="sfdCollectFeeNowBtn" href="/receipt-desk.html" class="btn" style="background: #F59E0B; color: #1E293B; font-weight: 700; text-decoration: none; padding: 0.5rem 1.1rem; border-radius: var(--radius-sm); font-size: 0.9rem;">
+              Collect Fee on Fast Desk &rarr;
+            </a>
+            <a href="/receipts.html" class="btn btn-outline" style="text-decoration: none; font-weight: 600; font-size: 0.9rem;">
+              Receipts Register
+            </a>
+          </div>
+        </div>
+
+        <!-- Student Particulars Form Grid matching Screenshot 2 -->
+        <div class="bec-form-card">
+          <div class="bec-form-grid">
+            <!-- Row 1 -->
+            <div class="form-group">
+              <label class="form-label" for="sfdStudentName">Student Name</label>
+              <div class="input-with-picker">
+                <input type="text" id="sfdStudentName" class="form-control" placeholder="Select student via [...]" readonly>
+                <button type="button" class="btn-picker-dots" onclick="becRealFee.openStudentPickerModal('studentFee')">...</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="sfdRegNo">RegNo</label>
+              <input type="text" id="sfdRegNo" class="form-control" placeholder="Registration No" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="sfdRollNo">RollNo</label>
+              <input type="text" id="sfdRollNo" class="form-control" placeholder="Roll No" readonly>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="form-group">
+              <label class="form-label" for="sfdSession">Session</label>
+              <input type="text" id="sfdSession" class="form-control" value="2026-27" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="sfdCourse">Course</label>
+              <input type="text" id="sfdCourse" class="form-control" value="Bachelor of Technology (B.Tech)" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="sfdBranch">Branch</label>
+              <input type="text" id="sfdBranch" class="form-control" placeholder="Branch Name" readonly>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="form-group">
+              <label class="form-label" for="sfdAcademicYear">Academic Year</label>
+              <input type="text" id="sfdAcademicYear" class="form-control" placeholder="Academic Year" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="sfdSemester">Semester</label>
+              <input type="text" id="sfdSemester" class="form-control" placeholder="Semester" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="sfdOutstanding">Current Outstanding Dues</label>
+              <input type="text" id="sfdOutstanding" class="form-control" style="font-weight: 800; color: var(--danger-rose);" placeholder="₹0.00" readonly>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dual Split Tables Layout matching Screenshot 2 -->
+        <div class="bec-dual-tables-grid">
+          <!-- Left Table: Element Details -->
+          <div class="bec-table-card">
+            <div class="bec-table-header-title">Element Details (Fee Heads &amp; Dues)</div>
+            <div class="table-responsive">
+              <table class="bec-table">
+                <thead>
+                  <tr>
+                    <th>Period Month</th>
+                    <th>Element Name</th>
+                    <th>Amount</th>
+                    <th>Paid Amount</th>
+                    <th>Update Amount</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+                  </tr>
+                </thead>
+                <tbody id="sfdElementDetailsTbody">
+                  <tr>
+                    <td colspan="7" style="text-align: center; padding: 2.5rem; color: var(--text-muted);">
+                      No student selected. Click [...] above to pick a student.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Right Table: Elements -->
+          <div class="bec-table-card">
+            <div class="bec-table-header-title">Adhoc Fee Elements &amp; Adjustments</div>
+            <div class="table-responsive">
+              <table class="bec-table">
+                <thead>
+                  <tr>
+                    <th>Element Name</th>
+                    <th>Element Amount</th>
+                    <th>Update Amount</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+                  </tr>
+                </thead>
+                <tbody id="sfdElementsTbody">
+                  <tr>
+                    <td colspan="5" style="text-align: center; padding: 2.5rem; color: var(--text-muted);">
+                      No extra adjustments recorded.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="display: flex; gap: 0.75rem; padding: 1rem; border-top: 1px solid var(--border-subtle); background: #F8FAFC;">
+              <button class="btn btn-sm btn-outline" onclick="becRealFee.openAddDiscountElementModal()" style="border-color: #CBD5E1; color: var(--primary-navy); font-weight: 600;">
+                Add Discount / Scholarship
+              </button>
+              <button class="btn btn-sm btn-outline" onclick="becRealFee.openAddFeeElementModal()" style="border-color: #CBD5E1; color: var(--primary-navy); font-weight: 600;">
+                Add Fee Element / Fine
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Receipts History Section -->
+        <div class="card" style="margin-top: 1.5rem;">
+          <div class="card-header" style="justify-content: space-between;">
+            <div class="card-title">Receipts History for Selected Student</div>
+            <span id="sfdReceiptsCount" class="badge badge-info">0 Receipts</span>
+          </div>
+          <div class="card-body" style="padding: 0;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Receipt No</th>
+                    <th>Date</th>
+                    <th>Fee Category</th>
+                    <th>Amount Paid</th>
+                    <th>Payment Mode</th>
+                    <th>Instrument / Ref</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="sfdReceiptsHistoryTbody">
+                  <tr><td colspan="7" style="text-align: center; padding: 1.5rem; color: var(--text-muted);">Select a student to view their receipt history.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Student Picker Modal -->
+  <div id="studentPickerModal" class="modal-backdrop">
+    <div class="modal-card" style="max-width: 800px;">
+      <div class="modal-header">
+        <div class="modal-title">Select Student Record</div>
+        <button class="modal-close-btn" onclick="ui.closeModal('studentPickerModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <input 
+            type="text" 
+            id="studentPickerSearchInput" 
+            class="form-control" 
+            placeholder="Filter by name, roll no, or reg no..."
+            oninput="becRealFee.filterStudentPicker()"
+          >
+        </div>
+        <div style="max-height: 400px; overflow-y: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Roll No</th>
+                <th>Reg No</th>
+                <th>Student Name</th>
+                <th>Branch</th>
+                <th>Year</th>
+                <th>Select</th>
+              </tr>
+            </thead>
+            <tbody id="studentPickerTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="ui.closeModal('studentPickerModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Fee Element Modal -->
+  <div id="addFeeElementModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">Add Fee Element / Adhoc Charge</div>
+        <button class="modal-close-btn" onclick="ui.closeModal('addFeeElementModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="addFeeElementName">Element Name</label>
+          <input type="text" id="addFeeElementName" class="form-control" placeholder="e.g. Backlog Exam Fee, Bus Fee">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="addFeeElementAmount">Amount (INR)</label>
+          <input type="number" id="addFeeElementAmount" class="form-control" placeholder="0.00" min="1">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="ui.closeModal('addFeeElementModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="becRealFee.confirmAddFeeElement()">Add Element</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Discount Element Modal -->
+  <div id="addDiscountModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">Add Institutional Scholarship / Fee Discount</div>
+        <button class="modal-close-btn" onclick="ui.closeModal('addDiscountModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="discountElementName">Discount / Waiver Reason</label>
+          <input type="text" id="discountElementName" class="form-control" placeholder="e.g. Merit Scholarship, Sibling Concession">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="discountElementAmount">Discount Amount (INR)</label>
+          <input type="number" id="discountElementAmount" class="form-control" placeholder="0.00" min="1">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="ui.closeModal('addDiscountModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="becRealFee.confirmAddDiscountElement()">Apply Discount</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Official Receipt Preview & Print Modal -->
+  <div id="receiptModal" class="modal-backdrop">
+    <div class="modal-card" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-title">Official Dual Counterfoil e-Receipt</div>
+        <button class="modal-close-btn" onclick="ui.closeModal('receiptModal')">&times;</button>
+      </div>
+      <div class="modal-body" id="receiptModalBody"></div>
+      <div class="modal-footer no-print">
+        <button class="btn btn-secondary" onclick="ui.closeModal('receiptModal')">Close</button>
+        <button class="btn btn-primary" onclick="window.print()">Print Official Receipt (Ctrl + P)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/navigation.js"></script>
+  <script src="/js/becRealFee.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      navigation.init('student-fee');
+      await becRealFee.loadAllStudentsCache();
+
+      // Check if studentId was passed in query parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const studentId = urlParams.get('studentId');
+
+      let targetStudent = null;
+      if (studentId) {
+        const sid = parseInt(studentId, 10);
+        targetStudent = becRealFee.allStudentsCache.find(s => s.id === sid);
+      }
+
+      if (!targetStudent && becRealFee.allStudentsCache.length > 0) {
+        targetStudent = becRealFee.allStudentsCache[0];
+      }
+
+      if (targetStudent) {
+        becRealFee.loadStudentFeeDetails(targetStudent);
+        const collectBtn = document.getElementById('sfdCollectFeeNowBtn');
+        const headerCollect = document.getElementById('headerCollectFeeBtn');
+        if (collectBtn) collectBtn.href = `/receipt-desk.html?studentId=${targetStudent.id}`;
+        if (headerCollect) headerCollect.href = `/receipt-desk.html?studentId=${targetStudent.id}`;
+      }
+    });
+  </script>
+</body>
+</html>
