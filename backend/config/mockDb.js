@@ -354,7 +354,108 @@ class MockDatabase {
           studentCounter++;
         }
 
-        console.log(`[MockDb] Successfully loaded ${students.length} real students from reporting spreadsheet.`);
+        // Seed Tushar Mhato (user ID 1644, student ID 1644, admission 2644)
+        const tusharHash = await bcrypt.hash('Tushar', 10);
+        this.users.push({
+          id: 1644,
+          email: 'tushar.mhato@bec.ac.in',
+          username: 'tushar2644',
+          password_hash: tusharHash,
+          role_id: 1,
+          is_active: 1,
+          must_change_password: 0
+        });
+
+        this.students.push({
+          id: 1644,
+          user_id: 1644,
+          reg_no: '2644',
+          roll_no: 'F24094004061',
+          serial_no: '2644',
+          full_name: 'Tushar Mhato',
+          first_name: 'Tushar',
+          middle_name: '',
+          last_name: 'Mhato',
+          title: 'Mr.',
+          gender: 'MALE',
+          dob: '2004-02-27',
+          category: 'GENERAL',
+          course_id: 1,
+          course_name: 'Diploma',
+          branch_id: 5,
+          branch_name: 'Mechanical Engineering',
+          current_semester_id: 2,
+          semester_label: '2nd Semester',
+          academic_session_id: 1,
+          session_name: '2024-2027',
+          admission_year: 2024,
+          section: 'Section A',
+          mentor: 'Prof. S. R. Jena',
+          batch: '2024-2027',
+          email: 'tushar.mhato@bec.ac.in',
+          personal_email: 'tushar2644@gmail.com',
+          phone: '5555555555',
+          whatsapp: '5555555555',
+          father_name: 'Sanjeev Kumar Mahato',
+          mother_name: 'Mrs. Mahato',
+          address: 'Bhubaneswar, Odisha',
+          permanent_address: 'Bhubaneswar, Odisha',
+          total_billed: 200000.00,
+          total_paid: 14000.00,
+          total_outstanding: 186000.00
+        });
+
+        // Seed Invoices for Tushar Mhato (5th & 6th Semesters)
+        const tusharInv1 = this.invoices.length + 1;
+        this.invoices.push({
+          id: tusharInv1,
+          invoice_no: 'INV-2026-DIP-5001',
+          student_id: 1644,
+          academic_session_id: 1,
+          semester_id: 5,
+          subtotal: 100000.00,
+          discount_amount: 2000.00,
+          fine_amount: 0.00,
+          total_payable: 98000.00,
+          paid_amount: 12000.00,
+          outstanding_amount: 86000.00,
+          due_date: '2026-10-31',
+          status: 'PARTIALLY_PAID',
+          notes: '5th Semester Diploma (Mechanical Engineering) - Outstanding Balance',
+          created_by: 2,
+          created_at: new Date().toISOString()
+        });
+
+        const tusharInv2 = this.invoices.length + 1;
+        this.invoices.push({
+          id: tusharInv2,
+          invoice_no: 'INV-2026-DIP-5002',
+          student_id: 1644,
+          academic_session_id: 1,
+          semester_id: 6,
+          subtotal: 100000.00,
+          discount_amount: 0.00,
+          fine_amount: 0.00,
+          total_payable: 100000.00,
+          paid_amount: 0.00,
+          outstanding_amount: 100000.00,
+          due_date: '2026-11-30',
+          status: 'ISSUED',
+          notes: '6th Semester Diploma (Mechanical Engineering) - Pending Dues',
+          created_by: 2,
+          created_at: new Date().toISOString()
+        });
+
+        // Seed Receipts for Tushar Mhato (Exact Receipts #1, #2, #3, #4, #6 from live portal)
+        this.receipts.push(
+          { id: 1, receipt_no: '1', invoice_id: 1, student_id: 1644, amount: 100000.00, discount: 0.00, payment_mode: 'CASH', payment_method: 'Cash', semester: '1st Semester', receipt_date: '2026-04-06 10:00:00', created_at: '2026-04-06 10:00:00', remarks: 'Amount', created_by: 2 },
+          { id: 9, receipt_no: '2', invoice_id: 1, student_id: 1644, amount: 99000.00, discount: -1000.00, payment_mode: 'CASH', payment_method: 'Cash', semester: '2nd Semester', receipt_date: '2026-04-07 11:30:00', created_at: '2026-04-07 11:30:00', remarks: 'Fee Payment', created_by: 2 },
+          { id: 15, receipt_no: '3', invoice_id: 1, student_id: 1644, amount: 100000.00, discount: 0.00, payment_mode: 'CASH', payment_method: 'Cash', semester: '3rd Semester', receipt_date: '2026-04-28 14:00:00', created_at: '2026-04-28 14:00:00', remarks: 'Abc', created_by: 2 },
+          { id: 16, receipt_no: '4', invoice_id: 1, student_id: 1644, amount: 99000.00, discount: -1000.00, payment_mode: 'CASH', payment_method: 'Cash', semester: '4th Semester', receipt_date: '2026-04-28 15:30:00', created_at: '2026-04-28 15:30:00', remarks: 'Amount', created_by: 2 },
+          { id: 18, receipt_no: '6', invoice_id: 1, student_id: 1644, amount: 90000.00, discount: -10000.00, payment_mode: 'CASH', payment_method: 'Cash', semester: '3rd Semester', receipt_date: '2026-04-29 12:00:00', created_at: '2026-04-29 12:00:00', remarks: 'Receipt', created_by: 2 }
+        );
+
+        console.log(`[MockDb] Successfully loaded ${students.length} real students from reporting spreadsheet, plus Tushar Mhato.`);
       } catch (err) {
         console.error('[MockDb] Error reading reporting excel:', err.message);
       }

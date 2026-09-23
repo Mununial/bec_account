@@ -68,6 +68,21 @@ const navigation = {
 
       // Handle role-based visibility
       const isStudent = user.role === 'STUDENT';
+      const currentPath = window.location.pathname.toLowerCase();
+      const adminPages = ['/dashboard.html', '/receipt-desk.html', '/students.html', '/expenses.html', '/reconciliation.html', '/reports.html', '/invoices.html', '/fees.html', '/audit.html'];
+
+      // Strict role isolation: Students cannot access staff admin pages
+      if (isStudent && adminPages.some(p => currentPath.endsWith(p))) {
+        window.location.replace('/student-portal.html');
+        return;
+      }
+
+      // Staff cannot access student self-service portal directly
+      if (!isStudent && currentPath.endsWith('/student-portal.html')) {
+        window.location.replace('/dashboard.html');
+        return;
+      }
+
       const studentNav = document.getElementById('studentNavGroup');
       const adminNav = document.getElementById('adminNavGroup');
 

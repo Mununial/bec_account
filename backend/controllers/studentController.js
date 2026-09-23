@@ -99,7 +99,7 @@ async function getDashboard(req, res) {
         pendingInvoices,
         recentPayments,
         upcomingDues,
-        unreadNotifications: notifCount[0].unread_count
+        unreadNotifications: (notifCount && notifCount[0]) ? notifCount[0].unread_count : 0
       },
       'Dashboard data loaded.'
     );

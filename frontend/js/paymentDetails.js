@@ -32,18 +32,9 @@ const paymentDetails = {
     const paramStudentId = urlParams.get('studentId') || urlParams.get('id');
 
     if (user.role === 'STUDENT') {
-      // If student is logged in, hide admin elements and lock to current student
-      const pickerBtn = document.getElementById('btnPickStudent');
-      if (pickerBtn) pickerBtn.style.display = 'none';
-
-      try {
-        const profRes = await api.get('/student/profile');
-        if (profRes && profRes.data) {
-          this.currentStudent = profRes.data;
-        }
-      } catch (err) {
-        console.error('Failed to load student profile:', err);
-      }
+      // Direct student to their dedicated Student ERP portal payment view
+      window.location.replace('/student-portal.html?tab=payment');
+      return;
     } else {
       // Staff / Admin: check if studentId param is passed, or default to Bablu Bag
       if (paramStudentId && this.allStudentsCache.length > 0) {
